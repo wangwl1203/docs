@@ -1,10 +1,10 @@
-## 仅需两步快速安装 MeterSphere
+## 仅需两步快速安装 测试管理平台
 
 1. 准备一台不小于 8 G 内存且可以访问互联网的 64 位 Linux 主机；
 2. 以 root 用户执行如下命令一键安装 MeterSphere。
 
 ```
-curl -sSL https://github.com/metersphere/metersphere/releases/latest/download/quick_start.sh | bash
+curl -sSL https://github.com/metersphere/metersphere/releases/latest/download/quick_start.sh | sh
 ```
 
 !!! info "安装配置文件说明, 如果无特殊需求可以不进行修改采用默认参数安装"
@@ -133,42 +133,41 @@ msctl status
 密码: metersphere
 ```
 
-## 配置反向代理
-
-如果需要使用 Nginx、Haproxy 等反向代理，需要配置反向代理对 websocket 的支持。以 Nginx 为例，参考的配置内容如下。
-```
-server {
-    listen 80;
-    server_name demo.metersphere.com;
-    server_tokens off;
-    return 301 https://$host$request_uri;
-}
-server {
-    listen 443 ssl;
-    # RSA certificate
-    ssl_certificate /etc/nginx/ssl/metersphere.com/fullchain.cer; # managed by Certbot
-    ssl_certificate_key /etc/nginx/ssl/metersphere.com/metersphere.com.key; # managed by Certbot
-    server_name  demo.metersphere.com;
-    proxy_connect_timeout       300;
-    proxy_send_timeout          300;
-    proxy_read_timeout          300;
-    send_timeout                300;
-    proxy_set_header Host $host;
-    proxy_set_header X-Forwarded-For $remote_addr;
-    proxy_set_header X-Forwarded-Host $server_name;
-    proxy_set_header X-Real-IP $remote_addr;
-    proxy_set_header X-Forwarded-Proto $scheme;
-    proxy_redirect http:// $scheme://;
-
-    location / {
-        proxy_pass http://ip:8081;
-        client_max_body_size 1000m;
-        #access_log off;
-
+!!! warning "注意"
+    如果需要使用 Nginx、Haproxy 等反向代理，需要配置反向代理对 websocket 的支持。以 Nginx 为例，参考的配置内容如下。
+    ```
+    server {
+        listen 80;
+        server_name demo.metersphere.com;
+        server_tokens off;
+        return 301 https://$host$request_uri;
+    }
+    server {
+        listen 443 ssl;
+        # RSA certificate
+        ssl_certificate /etc/nginx/ssl/metersphere.com/fullchain.cer; # managed by Certbot
+        ssl_certificate_key /etc/nginx/ssl/metersphere.com/metersphere.com.key; # managed by Certbot
+        server_name  demo.metersphere.com;
+        proxy_connect_timeout       300;
+        proxy_send_timeout          300;
+        proxy_read_timeout          300;
+        send_timeout                300;
+        proxy_set_header Host $host;
+        proxy_set_header X-Forwarded-For $remote_addr;
+        proxy_set_header X-Forwarded-Host $server_name;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_redirect http:// $scheme://;
         # 配置 websocket 支持
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection "upgrade";
+
+
+        location / {
+            proxy_pass http://ip:8081;
+            client_max_body_size 1000m;
+            #access_log off;
+        }
     }
-}
-```
+    ```

@@ -1,5 +1,5 @@
 ## 测试目标
-使用 MeterSphere 的接口测试功能，测试 MeterSphere 项目管理相关接口是否正常
+使用 测试管理平台 的接口测试功能，测试 测试管理平台 项目管理相关接口是否正常
 
 ## 测试场景
 - 通过查询项目列表接口，获取现有的项目列表，并判断当前项目列表中没有要创建的项目「接口测试项目」
@@ -9,7 +9,7 @@
 - 通过查询指定项目接口，传入「接口测试项目」的 ID 再次查询该项目，通过返回信息再次确认该项目是否删除成功
 
 ## 接口分析
-MeterSphere 的接口文档位于所部署环境中的 /swagger-ui 路径中，在该文档中的 project-controller 分组中可以找到我们所需的各个接口
+测试管理平台 的接口文档位于所部署环境中的 /swagger-ui 路径中，在该文档中的 project-controller 分组中可以找到我们所需的各个接口
 ![](../img/tutorial/api_testing/api_list.png)
 
 
@@ -33,7 +33,7 @@ MeterSphere 的接口文档位于所部署环境中的 /swagger-ui 路径中，�
 ```
 
 ## 创建接口测试
-接下来我们就可以在 MeterSphere 创建一个接口测试，来模拟测试上述测试场景。在本次测试中，我们通过调用登录接口并共享 Cookie 的方式来处理接口的认证问题
+接下来我们就可以在 测试管理平台 创建一个接口测试，来模拟测试上述测试场景。在本次测试中，我们通过调用登录接口并共享 Cookie 的方式来处理接口的认证问题
 
 ### 详细步骤
 1. 创建测试并配置场景
@@ -42,7 +42,7 @@ MeterSphere 的接口文档位于所部署环境中的 /swagger-ui 路径中，�
 ![](../img/tutorial/api_testing/api_testing_1_2.png)
 ![](../img/tutorial/api_testing/api_testing_1_3.png)
 
-2. 添加一个「登录 MeterSphere」的 HTTP 请求
+2. 添加一个「登录 测试管理平台」的 HTTP 请求
 使用「POST /signin」接口，根据接口定义选择 POST 方法并通过 JSON 的格式传入用户名密码；同时添加断言，判断登录请求是否成功
 ![](../img/tutorial/api_testing/api_testing_2_1.png)
 ![](../img/tutorial/api_testing/api_testing_2_2.png)

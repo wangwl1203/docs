@@ -75,15 +75,15 @@ dubbo>
 ![](../img/tutorial/dubbo/jmeter_dubbo.png)
 
 
-## 使用 MeterSphere 持续测试平台进行 Dubbo 接口测试
-除了上面提到的方法以外，我们还可以使用 MeterSphere 这样的完全兼容 JMeter 的测试平台来进行 Dubbo 接口测试。关于 MeterSphere 的详细介绍及部署使用方式，可以参考下面提供的链接。在这篇文章中，我们只聚焦于使用 MeterSphere 进行 Dubbo 接口测试进行介绍。
+## 使用 测试管理平台 持续测试平台进行 Dubbo 接口测试
+除了上面提到的方法以外，我们还可以使用 测试管理平台 这样的完全兼容 JMeter 的测试平台来进行 Dubbo 接口测试。关于 测试管理平台 的详细介绍及部署使用方式，可以参考下面提供的链接。在这篇文章中，我们只聚焦于使用 测试管理平台 进行 Dubbo 接口测试进行介绍。
 
-- [MeterSphere 项目官网](https://metersphere.io)
-- [MeterSphere 代码仓库](https://github.com/metersphere)
-- [MeterSphere 跟 JMeter 的比较](https://metersphere.io/jmeter-load-testing.html)
+- [测试管理平台 项目官网](https://metersphere.io)
+- [测试管理平台 代码仓库](https://github.com/metersphere)
+- [测试管理平台 跟 JMeter 的比较](https://metersphere.io/jmeter-load-testing.html)
 
 ### 准备工作
-- 已经部署了 MeterSphere 环境，并且有具有执行接口测试权限的账号
+- 已经部署了 测试管理平台 环境，并且有具有执行接口测试权限的账号
 - 准备 Dubbo 接口相关信息，包括注册中心连接信息、接口定义等
 - 如果使用了本文中提到的 Duboo Demo 项目，由于服务注册时的 IP 地址是 producer 容器的 IP，可能会出现调用不通的情况。这里我们通过 zk 命令手动地把这个 Demo 环境的 provider 信息改一下，把原来 provider 中的容器 IP 改为部署该 Demo 应用的主机 IP。
 
@@ -101,7 +101,7 @@ Created /dubbo/com.example.service.Greetings/providers/dubbo%3A%2F%2F192.168.2.1
 
 
 ### 创建项目
-登录 MeterSphere 平台后，点击在上方菜单中选择「接口测试」，在项目列表中点击「创建项目」
+登录 测试管理平台 平台后，点击在上方菜单中选择「接口测试」，在项目列表中点击「创建项目」
 ![](../img/tutorial/dubbo/create_project.png)
 
 ### 创建接口测试
@@ -168,7 +168,7 @@ public class User {
 ![](../img/tutorial/dubbo/api_test_report2.png)
 
 ### 转化为性能测试
-接口测试执行通过后，我们还可以通过 MeterSphere 提供的接口测试转性能测试的功能，直接发起针对 Dubbo 接口的性能测试。
+接口测试执行通过后，我们还可以通过 测试管理平台 提供的接口测试转性能测试的功能，直接发起针对 Dubbo 接口的性能测试。
 
 在「接口测试」页面的「测试」下拉列表中，选择我们刚创建的测试，点击更多操作中的「创建性能测试」选项
 ![](../img/tutorial/dubbo/create_load_test1.png)

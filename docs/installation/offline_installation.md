@@ -7,7 +7,7 @@
 
 ## 下载安装包
 
-请自行下载 MeterSphere 最新版本的离线安装包，并复制到目标机器的 /tmp 目录下
+请自行下载 测试管理平台 最新版本的离线安装包，并复制到目标机器的 /tmp 目录下
 
 !!! tip ""
     安装包下载链接: https://community.fit2cloud.com/#/products/metersphere/downloads
@@ -33,7 +33,7 @@ vim install.conf
 
 !!! info "安装配置文件说明, 如果无特殊需求可以不进行修改采用默认参数安装"
     ```vim
-    ## 安装路径, MeterSphere 配置及数据文件默认将安装在 ${MS_BASE}/metersphere 目录下
+    ## 安装路径, 测试管理平台 配置及数据文件默认将安装在 ${MS_BASE}/metersphere 目录下
     MS_BASE=/opt
     ## MeterSphere 使用的 docker 网络网段信息
     MS_DOCKER_SUBNET=172.30.10.0/24
@@ -181,16 +181,16 @@ msctl status
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_redirect http:// $scheme://;
-        
+        # 配置 websocket 支持
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+
         location / {
             proxy_pass http://ip:8081;
             client_max_body_size 1000m;
             #access_log off;
-            
-            # 配置 websocket 支持
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "upgrade";
         }
     }
     ```

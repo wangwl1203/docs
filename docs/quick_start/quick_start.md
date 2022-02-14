@@ -1,4 +1,4 @@
-我们为用户准备了可以快速部署 MeterSphere 所有组件及所需的中间件的在线安装脚本, 你可以通过该脚本部署并体验 MeterSphere 所提供的功能
+我们为用户准备了可以快速部署 测试管理平台 所有组件及所需的中间件的在线安装脚本, 你可以通过该脚本部署并体验 测试管理平台 所提供的功能
 
 !!! warning "注意"
     快速安装脚本所部署的环境仅适用于测试体验目的, 生产环境请参考本文档[「在线安装」](../installation/online_installation.md)章节内容进行部署
@@ -6,7 +6,7 @@
 ## 部署服务器要求
 
 !!! info "部署服务器要求"
-     * 操作系统:任何支持 Docker 的 Linux x64
+     * 操作系统:任何支持 Docker 的 Linux x6
      * CPU/内存：4核 8G
      * 部署目录空间（默认/opt目录）： 20G
      * 可访问互联网
@@ -48,16 +48,16 @@ curl -sSL https://github.com/metersphere/metersphere/releases/latest/download/qu
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_redirect http:// $scheme://;
-        
+        # 配置 websocket 支持
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+
+
         location / {
             proxy_pass http://ip:8081;
             client_max_body_size 1000m;
             #access_log off;
-            
-            # 配置 websocket 支持
-            proxy_http_version 1.1;
-            proxy_set_header Upgrade $http_upgrade;
-            proxy_set_header Connection "upgrade";
         }
     }
     ```
@@ -76,4 +76,5 @@ curl -sSL https://github.com/metersphere/metersphere/releases/latest/download/qu
 
 ### 界面说明
 
-![界面说明](../img/界面展示.png)
+![!界面说明](../img/layout.png)
+
